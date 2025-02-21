@@ -1,26 +1,28 @@
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: 123
-    url: jdbc:mysql://localhost:3306/vhr?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    url: jdbc:mysql://${DB_HOSTNAME:127.0.0.1}:3306/vhr?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
   rabbitmq:
-    username: guest
-    password: guest
-    host: 127.0.0.1
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    host: ${RABBITMQ_HOST:127.0.0.1}
     publisher-confirms: true
     publisher-returns: true
   redis:
-    host: 127.0.0.1
+    host: ${REDIS_HOST:127.0.0.1}
     database: 0
     port: 6379
-    password: 123
+    password: ${REDIS_PASSWORD:password}
   cache:
     cache-names: menus_cache
 server:
-  port: 8081
+  port: ${SERVER_PORT:8081}
   compression:
     enabled: true
 fastdfs:
   nginx:
-    host: http://192.168.91.128/
+    host: ${FASTDFS_NGINX_HOST:http://192.168.91.128/}    
+
+  
