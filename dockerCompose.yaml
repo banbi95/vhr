@@ -72,11 +72,7 @@ services:
 volumes:
     mysql-data:
       external: true
-      name: vhr-mysql-data
+      name: vhr_mysql-data
     redis-data:
-      external: true
-      name: vhr-redis-data
     rabbitmq-data:
-      external: true
-      name: vhr-rabbitmq-data
 
