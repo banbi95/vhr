@@ -11,4 +11,4 @@ target/
 vhr.wiki
 人事管理系统需求规格说明书.doc
 .vscode/
-vuehr/nginx.conf
+.gitignore
