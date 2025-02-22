@@ -8,10 +8,11 @@
 
 #create a RabbitMQ container
 
-version: '3'
+version: '3.8'
 services:
   mysql:
     image: mysql:lts
+    pull_policy: if_not_present
     environment:
       MYSQL_ROOT_PASSWORD: password
     expose:
@@ -20,6 +21,7 @@ services:
       - mysql-data:/var/lib/mysql
   redis:
     image: redis
+    pull_policy: if_not_present
     expose:
       - "6379"
     environment:
@@ -27,7 +29,8 @@ services:
     volumes:
       - redis-data:/data
   rabbitmq:
-    image: rabbitmq:3-management
+    image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq:3-management
+    pull_policy: if_not_present
     expose:
       - "5672"
     ports:
@@ -36,6 +39,7 @@ services:
       - rabbitmq-data:/var/lib/rabbitmq
   vhr-backend:
     image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${VHRBACKEND_VERSION}
+    pull_policy: if_not_present
     expose:
       - "8081" 
     depends_on:
@@ -55,6 +59,7 @@ services:
 
   vhr-ui:
     image: vhr-ui:1.0
+    pull_policy: if_not_present
     ports:
       - "80:80"
     depends_on:
