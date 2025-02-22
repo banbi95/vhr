@@ -12,6 +12,7 @@ pipeline {
                 script {
                     git 'https://github.com/banbi95/vhr.git'
                     sh 'git fetch --tags'
+                    sh 'chmod 644 vuehr/nginx.conf'
 
                     // 获取最新标签
                     try {
@@ -124,6 +125,8 @@ pipeline {
                     set -eo 
                     echo "当前版本: \${VHRBACKEND_VERSION}"
                     echo "\$DOCKER_PASSWORD" | docker login -u "\$DOCKER_USERNAME" --password-stdin ${DOCKER_REGISTRY}
+                    echo '检查 nginx.conf 是否存在：'
+                    ls -la ${WORKSPACE}/vuehr/nginx.conf
                     if [ -f dockerCompose.yaml ]; then
                         docker-compose -f dockerCompose.yaml pull --ignore-pull-failures
                         docker-compose -f dockerCompose.yaml -p vhr up -d 
