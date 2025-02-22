@@ -126,7 +126,7 @@ pipeline {
                     echo "\$DOCKER_PASSWORD" | docker login -u "\$DOCKER_USERNAME" --password-stdin ${DOCKER_REGISTRY}
                     if [ -f dockerCompose.yaml ]; then
                         docker-compose -f dockerCompose.yaml pull --ignore-pull-failures
-                        docker-compose -f dockerCompose.yaml up -d --force-recreate
+                        docker-compose -f dockerCompose.yaml -p vhr up -d 
                     else 
                         echo >&2 "错误: dockerCompose.yaml 文件不存在"
                         exit 1
