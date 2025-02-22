@@ -35,7 +35,7 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
   vhr-backend:
-    image: vhr-backend:${VHRBACKEND_VERSION}
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${VHRBACKEND_VERSION}
     expose:
       - "8081" 
     depends_on:
