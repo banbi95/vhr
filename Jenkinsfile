@@ -36,8 +36,7 @@ pipeline {
                 }
             }
         }
-
-        stage('check') {
+        stage('check iamge repo ') {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     script {
@@ -54,6 +53,36 @@ pipeline {
                             ).trim()
                             env.IMAGE_EXISTS = imageExists 
                         }
+                    }
+                }
+            }
+        }
+            // mvn package  
+        stage('build') {
+             when {
+                expression { env.IMAGE_EXISTS == "false" }
+            }
+            steps {
+                script {
+                    // 确保 DOCKER_REGISTRY 和 DOCKER_IMAGE 存在且不为空
+                    // if (!env.DOCKER_REGISTRY || !env.DOCKER_IMAGE) {
+                    //     error 'DOCKER_REGISTRY or DOCKER_IMAGE environment variables are not set'
+                    // }
+
+                    // // 验证 DOCKER_REGISTRY 和 DOCKER_IMAGE 是否包含非法字符
+                    // def validRegistry = env.DOCKER_REGISTRY =~ /^[a-zA-Z0-9._-]+$/
+                    // def validImage = env.DOCKER_IMAGE =~ /^[a-zA-Z0-9._-/]+$/
+
+                    // if (!validRegistry || !validImage) {
+                    //     error 'DOCKER_REGISTRY or DOCKER_IMAGE contains invalid characters'
+                    // }
+
+                    try {
+                        sh "cd vhr && docker build -t ${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}:latest ."
+                    } catch (Exception e) {
+                        echo "Docker build failed: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error 'Docker build failed, stopping pipeline'
                     }
                 }
             }
