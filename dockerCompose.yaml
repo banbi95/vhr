@@ -18,7 +18,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - vhr-mysql-data:/var/lib/mysql
   redis:
     image: redis
     pull_policy: if_not_present
@@ -27,7 +27,7 @@ services:
     environment:
       - REDIS_PASSWORD=password
     volumes:
-      - redis-data:/data
+      - vhr-redis-data:/data
   rabbitmq:
     image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq:3-management
     pull_policy: if_not_present
@@ -36,7 +36,7 @@ services:
     ports:
       - "15672:15672"
     volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
+      - vhr-rabbitmq-data:/var/lib/rabbitmq
   vhr-backend:
     image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${VHRBACKEND_VERSION}
     pull_policy: if_not_present
@@ -70,7 +70,7 @@ services:
 
     
 volumes:
-  mysql-data:
-  redis-data:
-  rabbitmq-data:
+  vhr-mysql-data:
+  vhr-redis-data:
+  vhr-rabbitmq-data:
 
