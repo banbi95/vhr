@@ -1,17 +1,20 @@
 pipeline {
-    agent  any
+    agent  { label 'wsl'
+    }
     stages {
-        stage('Build') { 
-        agent {
-                docker {
-                    image 'maven:3-alpine' 
-                    args '-v /root/.m2:/root/.m2' 
-                }
-            }
+        stage('Checkout') {
             steps {
-                sh 'cd ./vhr/vhrserver'
-                sh 'mvn -B -DskipTests clean package' 
+            git 'https://github.com/banbi95/vhr.git'
+            }
+            
+        }
+
+        stage('build') {
+            steps {
+                sh 'cd vhr/vhr && docker build -t banbi95/vhr-backend:1.1 .'
+                
             }
         }
+
     }
 }

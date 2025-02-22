@@ -17,10 +17,10 @@ RUN echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" \
 </settings>' > /usr/share/maven/conf/settings.xml
 # Build the project, resolve all dependencies and cache them locally 
 
-RUN cd vhrserver 
-# mvn -s /usr/share/maven/conf/settings.xml dependency:go-offline && \
-# mvn clean package -DskipTests
-#  mvn clean package -DskipTests
+
+RUN cd vhrserver  && mvn clean package -DskipTests
+
+ 
 
 
 
