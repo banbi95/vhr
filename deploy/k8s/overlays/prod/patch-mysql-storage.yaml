@@ -1,0 +1,14 @@
+
+# 新存储类名称
+- op: replace
+  path: /spec/storageClassName
+  value: "alicloud-nas-sc"  
+#  存储容量
+- op: replace
+  path: /spec/resources/requests/storage
+  value: "20Gi"
+- op: replace
+  path: /spec/accessModes
+  value: 
+    - ReadWriteOnce
+

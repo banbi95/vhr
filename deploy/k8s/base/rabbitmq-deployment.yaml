@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: rabbitmq
+  name: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: rabbitmq
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/vhr-default: "true"
+        io.kompose.service: rabbitmq
+    spec:
+      imagePullSecrets:
+        - name: image-registry-secret
+      containers:
+        - image: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq:3-management
+          name: rabbitmq
+          ports:
+            - containerPort: 15672
+              hostPort: 15672
+              protocol: TCP
+            - containerPort: 5672
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/rabbitmq
+              name: rabbitmq-data
+              subPath: rabbitmq
+      restartPolicy: Always
+      volumes:
+        - name: rabbitmq-data
+          persistentVolumeClaim:
+            claimName: rabbitmq-data

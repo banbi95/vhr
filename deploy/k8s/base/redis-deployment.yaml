@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/vhr-default: "true"
+        io.kompose.service: redis
+    spec:
+      imagePullSecrets:
+        - name: image-registry-secret
+      containers:
+        - env:
+            - name: REDIS_PASSWORD
+              value: password
+          image: redis
+          name: redis
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+              subPath: redis
+      restartPolicy: Always
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data

@@ -1,4 +1,9 @@
 pipeline {
+    /*
+    check out the updated tag on the remote git repo ,
+    if any , build new image and push it to the harbor registry,
+    deploy new app  onto test env  with  docker-compose
+    */
     agent { label 'wsl' }
     environment {
         DOCKER_REGISTRY = 'demo.goharbor.io'

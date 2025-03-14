@@ -1,0 +1,67 @@
+# overlays/dev/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base/
+- namespace.yaml  # creat a new namespace
+- storageclass.yaml
+
+
+# shift to namespace vhr 
+namespace: vhr
+
+
+labels:
+  - pairs:
+      env: dev
+    includeSelectors: true
+
+
+images:
+- name: demo.goharbor.io/vhr/vhr-ui
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-ui   
+  newTag: "1.0"
+- name: demo.goharbor.io/vhr/vhr-backend
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend
+  newTag: "v1.3"
+- name: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/rabbitmq
+  newTag: "3-management"
+- name: mysql
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/mysql
+  newTag: "lts"  
+- name: redis
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/redis
+  newTag: "latest"
+
+SecretGenerator:
+- name: secret-config
+  files:
+    - env/.env
+
+# add patch-mysql-storage.yaml
+patches:
+- path: patch-mysql-storage.yaml
+  target:  # 明确指定目标资源
+    group: ""  # 核心 API 组
+    version: v1
+    kind: PersistentVolumeClaim  # 假设是 PVC 补丁
+    name: mysql-data  # 资源名称
+- path: patch-redis-storage.yaml
+  target:  # 明确指定目标资源
+    group: ""  # 核心 API 组
+    version: v1
+    kind: PersistentVolumeClaim  # 假设是 PVC 补丁
+    name: redis-data  # 资源名称
+- path: patch-rabbitmq-storage.yaml
+  target:  # 明确指定目标资源
+    group: ""  # 核心 API 组
+    version: v1
+    kind: PersistentVolumeClaim  # 假设是 PVC 补丁
+    name: rabbitmq-data # 资源名称
+
+
+
+
+

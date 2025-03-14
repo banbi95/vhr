@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @MapperScan(basePackages = "org.javaboy.vhr.mapper")
 @EnableScheduling
+@enableRedisHttpSession
 public class VhrApplication {
 
     public static void main(String[] args) {

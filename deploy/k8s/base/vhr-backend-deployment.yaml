@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-backend
+  name: vhr-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-backend
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/vhr-default: "true"
+        io.kompose.service: vhr-backend
+    spec:
+      imagePullSecrets:
+        - name: image-registry-secret
+      containers:
+        - image: 'vhr-backend:v1.3'
+          imagePullPolicy: IfNotPresent
+          name: vhr-backend
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: env-config
+      restartPolicy: Always

@@ -1,0 +1,12 @@
+# 新存储类名称
+- op: replace
+  path: /spec/storageClassName
+  value: "hostpath"  
+#  存储容量
+- op: replace
+  path: /spec/resources/requests/storage
+  value: "1Gi"
+- op: replace
+  path: /spec/accessModes
+  value: 
+    - ReadWriteOnce
