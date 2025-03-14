@@ -12,3 +12,11 @@ vhr.wiki
 人事管理系统需求规格说明书.doc
 .vscode/
 .gitignore
+cmd.bash
+deploloy/k8s/over
+*.env
+deploy/k8s/base/env/.docker-config.json
+
+# exclude files starting with .
+^.*
+*manifest.yaml

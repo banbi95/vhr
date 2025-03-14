@@ -1,0 +1,19 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: alicloud-nas-sc
+mountOptions:
+- nolock,tcp,noresvport
+- vers=3
+- rsize=1048576
+- wsize=1048576
+- timeo=600
+- retrans=2
+
+parameters:
+  volumeAs: subpath
+  server: "19102e4bd71-sng88.cn-chengdu.nas.aliyuncs.com:/k8s"
+provisioner: nasplugin.csi.alibabacloud.com
+reclaimPolicy: Retain
+
+

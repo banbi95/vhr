@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-ui
+  name: vhr-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-ui
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f ../dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.network/vhr-default: "true"
+        io.kompose.service: vhr-ui
+    spec:
+      imagePullSecrets:
+        - name: image-registry-secret
+      containers:
+        - image: vhr-ui:1.0
+          imagePullPolicy: IfNotPresent
+          name: vhr-ui
+          ports:
+            - containerPort: 80
+              hostPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/default.conf
+              name: vhr-ui-claim0
+              subPath: nginx.conf
+        - name: configmap-reload
+          image: jimmidyson/configmap-reload:v0.5.0
+          args:
+            - --volume-dir=/etc/nginx/conf.d
+            - --webhook-url=http://localhost:8080/reload
+          volumeMounts:
+            - name: vhr-ui-claim0
+              mountPath: /etc/nginx/conf.d
+      restartPolicy: Always
+      volumes:
+        - name: vhr-ui-claim0
+          configMap:
+            name: nginx-configmap
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+       

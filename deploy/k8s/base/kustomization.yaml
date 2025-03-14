@@ -1,0 +1,114 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# 包含所有生成的资源文件
+resources:
+- mysql-data-persistentvolumeclaim.yaml
+- mysql-deployment.yaml
+- mysql-service.yaml
+- rabbitmq-data-persistentvolumeclaim.yaml
+- rabbitmq-deployment.yaml
+- rabbitmq-service.yaml
+- vhr-backend-deployment.yaml
+- vhr-backend-service.yaml
+- vhr-ui-deployment.yaml
+- vhr-ui-service.yaml
+- redis-deployment.yaml
+- redis-service.yaml
+- redis-data-persistentvolumeclaim.yaml
+
+
+
+# 添加通用元数据
+namespace: vhr  
+# namePrefix: vhr-
+# nameSuffix: -vhr
+
+
+# labels:
+#   app: vhr
+images:
+- name: vhr-ui 
+  newName: demo.goharbor.io/vhr/vhr-ui   
+  newTag: "1.0"
+- name: vhr-backend
+  newName: demo.goharbor.io/vhr/vhr-backend
+  newTag: v1.3
+  # digest: sha250250250250
+- name: redis
+  newName: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/quay.io/opstree/redis
+  newTag: v7.0.5
+
+
+# replicas:
+# - name: deployment-name
+#   count: 5
+
+
+# 2. 环境变量统一配置
+configMapGenerator:
+- name: env-config
+  literals:
+   - DB_HOSTNAME=mysql.vhr.svc.cluster.local
+   - DB_PASSWORD=password
+   - DB_USERNAME=root
+   - RABBITMQ_HOST=rabbitmq.vhr.svc.cluster.local
+   - RABBITMQ_PASSWORD=guest
+   - RABBITMQ_USERNAME=guest
+   - REDIS_HOST=redis.vhr.svc.cluster.local
+   - REDIS_PASSWORD=password
+  # options:
+  #   annotation:
+  #      "test-annotation": "test-annotation-value"
+# generate configmap  for ui app
+- name: nginx-configmap
+  files:
+   - env/nginx.conf
+  options:
+    disableNameSuffixHash: true
+
+secretGenerator:
+- name: image-registry-secret  # 名称必须与 Deployment 中引用的名称一致
+  type: kubernetes.io/dockerconfigjson
+  files:
+    - .dockerconfigjson=env/.docker-config.json  # 宿主机上的 docker 配置文件路径
+  options:
+    disableNameSuffixHash: true 
+
+generatorOptions:
+  labels:
+    type: generated
+  annotations:
+    note: generated
+
+# helmCharts:
+# - name: mysql
+#   repo: https://kubernetes-charts.storage.googleapis.com
+#   version: v1.2.0
+#   releaseName: test
+#   namespace: testNamespace
+#   valuesFile: values.yaml
+#   additionalValuesFiles:
+#   - values-file-1.yml
+#   - values-file-2.yml
+#   includeCRDs: true
+# - name: mysql
+#   repo: https://kubernetes-charts.storage.googleapis.com
+#   version: v1.2.0
+#   releaseName: test
+#   namespace: testNamespace
+#   valuesFile: values.yaml
+#   additionalValuesFiles:
+#   - values-file-1.yml
+#   - values-file-2.yml
+# - name: rabbitmq
+#   repo: https://kubernetes-charts.storage.googleapis.com
+#   version: v1.2.0
+#   releaseName: test
+#   namespace: testNamespace
+#   valuesFile: values.yaml
+#   additionalValuesFiles:
+#   - values-file-1.yml
+#   - values-file-2.yml
+
+  

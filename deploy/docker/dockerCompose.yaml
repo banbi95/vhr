@@ -3,10 +3,7 @@
 # expose port 3306
 
 
-# creat a redis container 
 
-
-#create a RabbitMQ container
 
 version: '3.8'
 services:
