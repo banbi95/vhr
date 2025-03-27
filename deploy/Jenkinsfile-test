@@ -138,7 +138,7 @@ pipeline {
             sh """
 
             cat ./deploy/k8s/base/env/.docker-config.json | base64 --decode
-            kubectl config use-context dev
+            kubectl config use-context test
             kubectl create secret docker-registry test-secret \
             --docker-server="\${DOCKER_REGISTRY}" \
             --docker-username="\${DOCKER_USERNAME}" \
