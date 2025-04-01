@@ -29,7 +29,7 @@ images:
   newTag: "1.0"
 - name: demo.goharbor.io/vhr/vhr-backend
   newName: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend
-  newTag: "v1.3"
+  newTag: "v1.4"
 - name: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq
   newName: swr.cn-north-4.myhuaweicloud.com/org-devin/rabbitmq
   newTag: "3-management"
