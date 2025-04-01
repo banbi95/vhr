@@ -1,0 +1,12 @@
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  defaultStorageClass: ""
+  storageClass: "standard"
+
+
+architecture: standalone
+auth:
+  rootPassword: "password"
+  createDatabase: true
+  database: "vhr"

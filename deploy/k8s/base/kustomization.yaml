@@ -3,9 +3,6 @@ kind: Kustomization
 
 # 包含所有生成的资源文件
 resources:
-- mysql-data-persistentvolumeclaim.yaml
-- mysql-deployment.yaml
-- mysql-service.yaml
 - rabbitmq-data-persistentvolumeclaim.yaml
 - rabbitmq-deployment.yaml
 - rabbitmq-service.yaml
@@ -81,17 +78,17 @@ generatorOptions:
   annotations:
     note: generated
 
-# helmCharts:
-# - name: mysql
-#   repo: https://kubernetes-charts.storage.googleapis.com
-#   version: v1.2.0
-#   releaseName: test
-#   namespace: testNamespace
-#   valuesFile: values.yaml
-#   additionalValuesFiles:
-#   - values-file-1.yml
-#   - values-file-2.yml
-#   includeCRDs: true
+helmCharts:
+- name: mysql
+  repo: https://charts.bitnami.com/bitnami
+# use 8.4 version of app
+  version: 11.1.0
+  releaseName: mysql
+  # namespace: default
+  valuesFile: mysql-values.yaml
+  # additionalValuesFiles:
+  # - values-file-1.yml
+  includeCRDs: true
 # - name: mysql
 #   repo: https://kubernetes-charts.storage.googleapis.com
 #   version: v1.2.0

@@ -52,7 +52,7 @@ pipeline {
                                 script: """
                                   echo "Logging into Docker registry"
                                   echo "\$DOCKER_PASSWORD" | docker login -u "\$DOCKER_USERNAME" --password-stdin ${DOCKER_REGISTRY}
-                                if docker manifest inspect ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${VHRBACKEND_TAG} >/dev/null 2>&1; then
+                                if docker inspect ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${VHRBACKEND_TAG} >/dev/null 2>&1; then
                                     echo 'true'
                                 else
                                     echo 'false'
@@ -60,8 +60,14 @@ pipeline {
                                 """,
                                 returnStdout: true
                             ).trim()
-                            env.IMAGE_EXISTS = imageExists 
-                            echo "Imgae exists: ${env.IMAGE_EXISTS}"
+                        // temporarily  skip it 
+                        try {
+                            env.IMAGE_EXISTS = imageExists ?: "false" 
+                            echo "Image exists: ${env.IMAGE_EXISTS}"
+                        } catch (Exception e) {
+                            echo "Error checking image existence: ${e.message}"
+                            env.IMAGE_EXISTS = "false" // 确保在异常情况下设置默认值
+                        }
                         }
                     }
                 }
@@ -135,15 +141,14 @@ pipeline {
 // read secret text from huawei-swr-auth
                 withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
 // make sure shift to dev env,then deploy
+    //   kubectl create secret docker-registry test-secret \
+    //         --docker-server="\${DOCKER_REGISTRY}" \
+    //         --docker-username="\${DOCKER_USERNAME}" \
+    //         --docker-password="\${DOCKER_PASSWORD}" \
+    //         --docker-email="\${DOCKER_EMAIL}" 
             sh """
-
             cat ./deploy/k8s/base/env/.docker-config.json | base64 --decode
             kubectl config use-context dev
-            kubectl create secret docker-registry test-secret \
-            --docker-server="\${DOCKER_REGISTRY}" \
-            --docker-username="\${DOCKER_USERNAME}" \
-            --docker-password="\${DOCKER_PASSWORD}" \
-            --docker-email="\${DOCKER_EMAIL}" 
             kubectl apply  -k ./deploy/k8s/overlays/dev
             """
                 }
