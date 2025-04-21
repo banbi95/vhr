@@ -1,0 +1,13 @@
+# crate a  secret to pull from private registry
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-image-registry
+  annotations:
+    kubernetes.io/service-account.name: vhr-image-registry
+    kubernetes.io/dockerconfigjson: "true"
+type: kubernetes.io/dockerconfigjson
+data:
+    # .dockerconfigjson: ewoJImF1dGhzIjogewoJCSIyc3dyLm5vcnRoNC5teWh1YXdlYl9jbG91ZC5jb20iOiB7CgkJCSJ1c2VybmFtZSI6ICJjbi1ub3J0aDQkRjI0RENFR0tDMjZWSUExQ1RJTiIsCgkJCSJwYXNzd29yZCI6ICIxNGYzMmM5ZWY0ODJlOTkyNjVkMTk0MjRiNjlhNDI5ZThlN2VjOTJiOGJlYmNmZTNjMWFjYjU4M2NmZmU5Njg2IiwKCQkJImVtYWlsIjogIiIsCgkJCSJhdXRoIjogIiIsCgkJCSJ0eXBlIjogInRva2VuIgp9Cgl9Cn0=
+    .dockerconfigjson: |
+      {{ .Files.Get ".dockerconfig.json"  | b64enc}}

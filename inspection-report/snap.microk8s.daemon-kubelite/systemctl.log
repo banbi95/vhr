@@ -1,0 +1,19 @@
+● snap.microk8s.daemon-kubelite.service - Service for snap application microk8s.daemon-kubelite
+     Loaded: loaded (/etc/systemd/system/snap.microk8s.daemon-kubelite.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2025-04-15 17:58:51 CST; 748ms ago
+   Main PID: 227849 (kubelite)
+      Tasks: 25 (limit: 19045)
+     Memory: 187.9M
+     CGroup: /system.slice/snap.microk8s.daemon-kubelite.service
+             └─227849 /snap/microk8s/6571/kubelite --scheduler-args-file=/var/snap/microk8s/6571/args/kube-scheduler --controller-manager-args-file=/var/snap/microk8s/6571/args/kube-controller-manager --proxy-args-file=/var/snap/microk8s/6571/args/kube-proxy --kubelet-args-file=/var/snap/microk8s/6571/args/kubelet --apiserver-args-file=/var/snap/microk8s/6571/args/kube-apiserver --kubeconfig-file=/var/snap/microk8s/6571/credentials/client.config --start-control-plane=true
+
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.502456  227849 genericapiserver.go:656] Skipping API scheduling.k8s.io/v1alpha1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.504442  227849 genericapiserver.go:656] Skipping API storage.k8s.io/v1alpha1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.506071  227849 genericapiserver.go:656] Skipping API flowcontrol.apiserver.k8s.io/v1alpha1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.507976  227849 genericapiserver.go:656] Skipping API apps/v1beta2 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.508001  227849 genericapiserver.go:656] Skipping API apps/v1beta1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.508818  227849 genericapiserver.go:656] Skipping API admissionregistration.k8s.io/v1beta1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.509500  227849 genericapiserver.go:656] Skipping API events.k8s.io/v1beta1 because it has no resources.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: I0415 17:58:52.509908  227849 plugins.go:158] Loaded 11 mutating admission controller(s) successfully in the following order: NamespaceLifecycle,LimitRanger,ServiceAccount,TaintNodesByCondition,Priority,DefaultTolerationSeconds,DefaultStorageClass,StorageObjectInUseProtection,RuntimeClass,DefaultIngressClass,MutatingAdmissionWebhook.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: I0415 17:58:52.509924  227849 plugins.go:161] Loaded 11 validating admission controller(s) successfully in the following order: LimitRanger,ServiceAccount,PodSecurity,Priority,PersistentVolumeClaimResize,RuntimeClass,CertificateApproval,CertificateSigning,CertificateSubjectRestriction,ValidatingAdmissionWebhook,ResourceQuota.
+Apr 15 17:58:52 msi microk8s.daemon-kubelite[227849]: W0415 17:58:52.519553  227849 genericapiserver.go:656] Skipping API apiregistration.k8s.io/v1beta1 because it has no resources.

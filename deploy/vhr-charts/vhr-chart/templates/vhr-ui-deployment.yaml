@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-ui
+  name: vhr-ui
+spec:
+  replicas: {{ .Values.vhr_ui.replicas }}
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-ui
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/docker-default: "true"
+        io.kompose.service: vhr-ui
+    spec:
+      imagePullSecrets:
+        - name: vhr-image-registry
+      containers:
+        - image: {{ .Values.vhr_ui.images }}
+          name: vhr-ui
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              name: nginx-config
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+              initialDelaySeconds: 5
+              periodSeconds: 10
+      restartPolicy: Always
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf

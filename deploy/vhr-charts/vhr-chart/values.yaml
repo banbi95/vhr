@@ -1,0 +1,55 @@
+vhr_backend:
+  replicas: 5
+  images: "swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend:v1.4"
+vhr_ui:
+  replicas: 2
+  images: "swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-ui:1.0"
+
+mysql:
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  # image:
+  #   registry: swr.cn-north-4.myhuaweicloud.com
+  #   repository: org-devin/mysql
+  #   tag: lts
+  auth:
+    rootPassword: "password"
+    createDatabase: true
+    database: "vhr"
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "hostpath"
+      size: 8Gi 
+
+rabbitmq:
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  image:
+    registry: swr.cn-north-4.myhuaweicloud.com
+    repository: org-devin/rabbitmq
+    tag: 3-management
+  persistence:
+    enabled: true
+    storageClass: "hostpath"
+    size: 2Gi
+
+
+redis: 
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  auth:
+    password: "password"
+  master:
+    persistence:
+      enabled: true
+      storageClass: "hostpath"
+      size: 2Gi
+  # image:
+  #   registry: swr.cn-north-4.myhuaweicloud.com
+  #   repository: org-devin/redis
+  #   tag: latest
+

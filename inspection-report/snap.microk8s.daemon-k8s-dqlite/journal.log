@@ -1,0 +1,115 @@
+Apr 15 17:15:45 MSI systemd[1]: Started Service for snap application microk8s.daemon-k8s-dqlite.
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + export PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25251]: ++ /snap/microk8s/6571/bin/uname -m
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + ARCH=x86_64
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + export LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + export LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + export XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + mkdir -p /var/snap/microk8s/common/run
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + source /snap/microk8s/6571/actions/common/utils.sh
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: ++ [[ /snap/microk8s/6571/run-k8s-dqlite-with-args == \/\s\n\a\p\/\m\i\c\r\o\k\8\s\/\6\5\7\1\/\a\c\t\i\o\n\s\/\c\o\m\m\o\n\/\u\t\i\l\s\.\s\h ]]
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + exit_if_service_not_expected_to_start k8s-dqlite
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + local service=k8s-dqlite
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + '[' -f /var/snap/microk8s/6571/var/lock/no-k8s-dqlite ']'
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + '[' -e /var/snap/microk8s/6571/var/lock/low-memory-guard.lock ']'
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + app=k8s-dqlite
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite ']'
+Apr 15 17:15:45 MSI microk8s.daemon-k8s-dqlite[25126]: + sleep 6
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + set -a
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite-env ']'
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + . /var/snap/microk8s/6571/args/k8s-dqlite-env
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + set +a
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25790]: ++ cat /var/snap/microk8s/6571/args/k8s-dqlite
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + declare -a 'args=(--storage-dir=${SNAP_DATA}/var/kubernetes/backend/
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: --listen=unix://${SNAP_DATA}/var/kubernetes/backend/kine.sock:12379)'
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: + exec /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:15:51+08:00" level=info msg="Starting dqlite"
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: I0415 17:15:51.655673   25126 log.go:198] Failure domain set to 1
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: I0415 17:15:51.655688   25126 log.go:198] TLS enabled
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:15:51+08:00" level=info msg="New kine for dqlite."
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:15:51+08:00" level=info msg="DriverName is dqlite-1."
+Apr 15 17:15:51 MSI microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:15:51+08:00" level=info msg="Kine listening on unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379"
+Apr 15 17:27:36 msi systemd[1]: Stopping Service for snap application microk8s.daemon-k8s-dqlite...
+Apr 15 17:27:36 msi microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:27:36+08:00" level=info msg="Shutting down\n"
+Apr 15 17:27:36 msi microk8s.daemon-k8s-dqlite[25126]: time="2025-04-15T17:27:36+08:00" level=info msg="Dqlite stopped\n"
+Apr 15 17:27:36 msi systemd[1]: snap.microk8s.daemon-k8s-dqlite.service: Deactivated successfully.
+Apr 15 17:27:36 msi systemd[1]: Stopped Service for snap application microk8s.daemon-k8s-dqlite.
+Apr 15 17:29:47 msi systemd[1]: Started Service for snap application microk8s.daemon-k8s-dqlite.
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + export PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83270]: ++ /snap/microk8s/6571/bin/uname -m
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + ARCH=x86_64
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + export LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + export LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + export XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + mkdir -p /var/snap/microk8s/common/run
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + source /snap/microk8s/6571/actions/common/utils.sh
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: ++ [[ /snap/microk8s/6571/run-k8s-dqlite-with-args == \/\s\n\a\p\/\m\i\c\r\o\k\8\s\/\6\5\7\1\/\a\c\t\i\o\n\s\/\c\o\m\m\o\n\/\u\t\i\l\s\.\s\h ]]
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + exit_if_service_not_expected_to_start k8s-dqlite
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + local service=k8s-dqlite
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + '[' -f /var/snap/microk8s/6571/var/lock/no-k8s-dqlite ']'
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + '[' -e /var/snap/microk8s/6571/var/lock/low-memory-guard.lock ']'
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + app=k8s-dqlite
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite ']'
+Apr 15 17:29:47 msi microk8s.daemon-k8s-dqlite[83155]: + sleep 6
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + set -a
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite-env ']'
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + . /var/snap/microk8s/6571/args/k8s-dqlite-env
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + set +a
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83565]: ++ cat /var/snap/microk8s/6571/args/k8s-dqlite
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + declare -a 'args=(--storage-dir=${SNAP_DATA}/var/kubernetes/backend/
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: --listen=unix://${SNAP_DATA}/var/kubernetes/backend/kine.sock:12379)'
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: + exec /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:29:53+08:00" level=info msg="Starting dqlite"
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: I0415 17:29:53.861026   83155 log.go:198] Failure domain set to 1
+Apr 15 17:29:53 msi microk8s.daemon-k8s-dqlite[83155]: I0415 17:29:53.861043   83155 log.go:198] TLS enabled
+Apr 15 17:29:58 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:29:58+08:00" level=info msg="New kine for dqlite."
+Apr 15 17:29:58 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:29:58+08:00" level=info msg="DriverName is dqlite-1."
+Apr 15 17:29:58 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:29:58+08:00" level=info msg="Kine listening on unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379"
+Apr 15 17:40:55 msi systemd[1]: Stopping Service for snap application microk8s.daemon-k8s-dqlite...
+Apr 15 17:40:55 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:40:55+08:00" level=info msg="Shutting down\n"
+Apr 15 17:40:56 msi microk8s.daemon-k8s-dqlite[83155]: time="2025-04-15T17:40:56+08:00" level=info msg="Dqlite stopped\n"
+Apr 15 17:40:56 msi systemd[1]: snap.microk8s.daemon-k8s-dqlite.service: Deactivated successfully.
+Apr 15 17:40:56 msi systemd[1]: Stopped Service for snap application microk8s.daemon-k8s-dqlite.
+Apr 15 17:41:34 msi systemd[1]: Started Service for snap application microk8s.daemon-k8s-dqlite.
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + export PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + PATH=/snap/microk8s/6571/usr/sbin:/snap/microk8s/6571/usr/bin:/snap/microk8s/6571/sbin:/snap/microk8s/6571/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147914]: ++ /snap/microk8s/6571/bin/uname -m
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + ARCH=x86_64
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + export LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + LD_LIBRARY_PATH=:/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + export LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + LD_LIBRARY_PATH=/var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void::/snap/microk8s/6571/lib:/snap/microk8s/6571/usr/lib:/snap/microk8s/6571/lib/x86_64-linux-gnu:/snap/microk8s/6571/usr/lib/x86_64-linux-gnu
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + export XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + XDG_RUNTIME_DIR=/var/snap/microk8s/common/run
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + mkdir -p /var/snap/microk8s/common/run
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + source /snap/microk8s/6571/actions/common/utils.sh
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: ++ [[ /snap/microk8s/6571/run-k8s-dqlite-with-args == \/\s\n\a\p\/\m\i\c\r\o\k\8\s\/\6\5\7\1\/\a\c\t\i\o\n\s\/\c\o\m\m\o\n\/\u\t\i\l\s\.\s\h ]]
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + exit_if_service_not_expected_to_start k8s-dqlite
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + local service=k8s-dqlite
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + '[' -f /var/snap/microk8s/6571/var/lock/no-k8s-dqlite ']'
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + '[' -e /var/snap/microk8s/6571/var/lock/low-memory-guard.lock ']'
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + app=k8s-dqlite
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite ']'
+Apr 15 17:41:34 msi microk8s.daemon-k8s-dqlite[147800]: + sleep 6
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + set -a
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + '[' -e /var/snap/microk8s/6571/args/k8s-dqlite-env ']'
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + . /var/snap/microk8s/6571/args/k8s-dqlite-env
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + set +a
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[148155]: ++ cat /var/snap/microk8s/6571/args/k8s-dqlite
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + declare -a 'args=(--storage-dir=${SNAP_DATA}/var/kubernetes/backend/
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: --listen=unix://${SNAP_DATA}/var/kubernetes/backend/kine.sock:12379)'
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + exec /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:40+08:00" level=info msg="Starting dqlite"
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: I0415 17:41:40.186412  147800 log.go:198] Failure domain set to 1
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: I0415 17:41:40.186416  147800 log.go:198] TLS enabled
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="New kine for dqlite."
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="DriverName is dqlite-1."
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="Kine listening on unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379"

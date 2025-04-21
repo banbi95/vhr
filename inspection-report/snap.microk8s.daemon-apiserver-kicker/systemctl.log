@@ -1,0 +1,11 @@
+● snap.microk8s.daemon-apiserver-kicker.service - Service for snap application microk8s.daemon-apiserver-kicker
+     Loaded: loaded (/etc/systemd/system/snap.microk8s.daemon-apiserver-kicker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2025-04-15 17:41:33 CST; 17min ago
+   Main PID: 147586 (apiservice-kick)
+      Tasks: 2 (limit: 19045)
+     Memory: 1.1M
+     CGroup: /system.slice/snap.microk8s.daemon-apiserver-kicker.service
+             ├─147586 /bin/bash /snap/microk8s/6571/apiservice-kicker
+             └─227699 sleep 5
+
+Apr 15 17:41:33 msi systemd[1]: Started Service for snap application microk8s.daemon-apiserver-kicker.

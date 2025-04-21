@@ -9,7 +9,9 @@ pipeline {
         DOCKER_REGISTRY = 'swr.cn-north-4.myhuaweicloud.com'
         DOCKER_IMAGE = 'org-devin/vhr-backend'
         DOCKER_CREDENTIALS_ID = 'huawei-swr-auth'
-        env = 'dev'
+        env = 'test'
+        KUBE_CONTEXT = 'microk8s'
+
     }
 
     stages {
@@ -120,32 +122,62 @@ pipeline {
                 }
             }
         }
-
- // deploy to dev environment 
-        stage('deploy') {
-            environment { 
-                VHRBACKEND_VERSION = "${env.LATEST_TAG}"
-                DOCKER_REGISTRY = "${env.DOCKER_REGISTRY}"
-                DOCKER_IMAGE = "${env.DOCKER_IMAGE}"
-                DOCKER_EMAIL = '1790236881@qq.com'
-            }
-// checkout current env , if not , switch to dev environment 
-
+// dynamically generate docker image pull secret 
+stage('Generate Docker Config') {
             steps {
-// read secret text from huawei-swr-auth
                 withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-// make sure shift to dev env,then deploy
-            sh """
+                    script {
+                        // 计算 Base64 编码的 auth 字符串
+                        def dockerAuth = "${env.DOCKER_USERNAME}:${env.DOCKER_PASSWORD}".bytes.encodeBase64().toString()
 
-            cat ./deploy/k8s/base/env/.docker-config.json | base64 --decode
-            kubectl config use-context test
-            kubectl create secret docker-registry test-secret \
-            --docker-server="\${DOCKER_REGISTRY}" \
-            --docker-username="\${DOCKER_USERNAME}" \
-            --docker-password="\${DOCKER_PASSWORD}" \
-            --docker-email="\${DOCKER_EMAIL}" 
-            kubectl apply  -k ./deploy/k8s/overlays/dev
-            """
+                        // 使用 sed 替换模板中的占位符
+                        sh """
+                            sed -e 's|DOCKER_USERNAME_PLACEHOLDER|${env.DOCKER_USERNAME}|g' \
+                                -e 's|DOCKER_PASSWORD_PLACEHOLDER|${env.DOCKER_PASSWORD}|g' \
+                                -e 's|DOCKER_EMAIL_PLACEHOLDER|1790236881@qq.com|g' \
+                                -e 's|DOCKER_AUTH_PLACEHOLDER|${dockerAuth}|g' \
+                                .dockerconfig.json.template > .dockerconfig.json
+                        """
+                    }
+                }
+
+            }
+        }
+// dymamically generate .secret file , use sed to replace pass holder in .secret.template with pass stored in jeknins server 
+stage('Generate .secret') {
+    steps {
+        withCredentials([
+            string(credentialsId: 'vhr-db-password', variable: 'DB_PASSWORD'),
+            string(credentialsId: 'vhr-rabbitmq-password', variable: 'RABBITMQ_PASSWORD'),
+            string(credentialsId: 'vhr-redis-password', variable: 'REDIS_PASSWORD')
+        ]) {
+            script {
+                sh '''
+                    sed -e "s|password|${DB_PASSWORD}|g" \
+                        -e "s|guest|${RABBITMQ_PASSWORD}|g" \
+                        -e "s|password|${REDIS_PASSWORD}|g" \
+                        .secret.template > .secret
+                '''
+            }
+        }
+    }
+}
+
+
+ // deploy to assigned environment
+        stage('deploy with helm') {
+            steps {
+// replace ctx as var env 
+            sh "sudo kubectl ctx ${env.KUBE_CONTEXT} "
+            sh 'pwd'
+            sh 'helm upgrade --install my-app ./ --namespace=vhr'
+            }
+        }
+        
+        stage('cleanup') {
+            steps{
+                script {
+                    sh 'rm -f .dockerconfig.json .secret'
                 }
             }
         }

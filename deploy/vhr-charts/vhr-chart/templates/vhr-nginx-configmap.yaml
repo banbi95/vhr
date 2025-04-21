@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    upstream backend {
+    server vhr-backend:8081 max_fails=3 fail_timeout=10s;
+    #  number of available connection with upstream server  , by deafult vcpu * 4
+    keepalive 4;
+    }
+    server {
+        listen 80;
+        server_name _;
+
+      # rewrite / to index.html
+        location = / {
+            root /usr/share/nginx/html;
+            try_files /index.html =404;  #
+        }
+
+      #  deal with api requests,
+        location / {
+            proxy_pass http://backend;
+            #  forcely use http1.1
+            proxy_http_version 1.1;
+            #  clear connection header to avoid 'upgrade' issues
+            proxy_set_header Connection "";  #
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+    # serve static files
+        location ~* \.(html|js|css|png|jpg|jpeg|gif|ico|map)$ {
+            root /usr/share/nginx/html;
+            try_files $uri =404;
+            gzip on;
+            gzip_vary on; #
+            gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+            expires 30d;
+        }
+
+
+      error_page 404 /404.html;
+        location = /404.html {
+            internal; #
+            root /usr/share/nginx/html;
+        }
+
+
+        # 错误页面配置
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            internal;  #
+            root /usr/share/nginx/html;
+        }
+    }

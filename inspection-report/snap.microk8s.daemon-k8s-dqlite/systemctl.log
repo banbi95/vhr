@@ -1,0 +1,19 @@
+● snap.microk8s.daemon-k8s-dqlite.service - Service for snap application microk8s.daemon-k8s-dqlite
+     Loaded: loaded (/etc/systemd/system/snap.microk8s.daemon-k8s-dqlite.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2025-04-15 17:41:34 CST; 17min ago
+   Main PID: 147800 (k8s-dqlite)
+      Tasks: 34 (limit: 19045)
+     Memory: 285.4M
+     CGroup: /system.slice/snap.microk8s.daemon-k8s-dqlite.service
+             └─147800 /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[148155]: ++ cat /var/snap/microk8s/6571/args/k8s-dqlite
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + declare -a 'args=(--storage-dir=${SNAP_DATA}/var/kubernetes/backend/
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: --listen=unix://${SNAP_DATA}/var/kubernetes/backend/kine.sock:12379)'
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: + exec /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:40+08:00" level=info msg="Starting dqlite"
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: I0415 17:41:40.186412  147800 log.go:198] Failure domain set to 1
+Apr 15 17:41:40 msi microk8s.daemon-k8s-dqlite[147800]: I0415 17:41:40.186416  147800 log.go:198] TLS enabled
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="New kine for dqlite."
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="DriverName is dqlite-1."
+Apr 15 17:41:41 msi microk8s.daemon-k8s-dqlite[147800]: time="2025-04-15T17:41:41+08:00" level=info msg="Kine listening on unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379"

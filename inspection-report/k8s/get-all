@@ -1,0 +1,9 @@
+NAMESPACE     NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE   SELECTOR
+default       service/kubernetes   ClusterIP   10.152.183.1    <none>        443/TCP                  43m   <none>
+kube-system   service/kube-dns     ClusterIP   10.152.183.10   <none>        53/UDP,53/TCP,9153/TCP   37m   k8s-app=kube-dns
+
+NAMESPACE     NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE   CONTAINERS    IMAGES                          SELECTOR
+kube-system   daemonset.apps/calico-node   0         0         0       0            0           kubernetes.io/os=linux   15m   calico-node   docker.io/calico/node:v3.23.5   k8s-app=calico-node
+
+NAMESPACE     NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                IMAGES                                      SELECTOR
+kube-system   deployment.apps/calico-kube-controllers   0/1     0            0           15m   calico-kube-controllers   docker.io/calico/kube-controllers:v3.23.5   k8s-app=calico-kube-controllers

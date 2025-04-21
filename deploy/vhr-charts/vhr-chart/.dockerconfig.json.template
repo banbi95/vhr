@@ -1,0 +1,10 @@
+{
+  "auths": {
+    "swr.cn-north-4.myhuaweicloud.com": {
+      "username": "DOCKER_USERNAME_PLACEHOLDER",
+      "password": "DOCKER_PASSWORD_PLACEHOLDER",
+      "email": "DOCKER_EMAIL_PLACEHOLDER",
+      "auth": "DOCKER_AUTH_PLACEHOLDER"
+    }
+  }
+}

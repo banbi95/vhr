@@ -1,0 +1,3 @@
+/dev/sdc                                  251G   45G  194G  19% /
+/dev/sdd                                 1007G   57M  956G   1% /mnt/wsl/docker-desktop/docker-desktop-user-distro
+/dev/loop0                                511M  511M     0 100% /mnt/wsl/docker-desktop/cli-tools

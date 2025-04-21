@@ -1,0 +1,58 @@
+vhr_backend:
+  replicas: 3
+  images: "swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend:v1.4"
+vhr_ui:
+  replicas: 2
+  images: "swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-ui:1.0"
+
+mysql:
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  images:
+    registry: "docker.io"
+    repository: "bitnami/mysql"
+    tag: "8.4.0-debian-12-r3"
+  auth:
+    rootPassword: "password"
+    createDatabase: true
+    database: "vhr"
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "microk8s-hostpath"
+      size: 8Gi
+
+rabbitmq:
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  image:
+    registry: docker.io
+    repository: bitnami/rabbitmq
+    tag: 3.10.5-debian-11-r11
+  persistence:
+    enabled: true
+    storageClass: "microk8s-hostpath"
+    size: 2Gi
+
+
+redis: 
+  global:
+    imagePullSecrets:
+      - "vhr-image-registry"
+  auth:
+    password: "password"
+  architecture: "standalone"
+  master:
+    persistence:
+      enabled: true
+      storageClass: "microk8s-hostpath"
+      size: 2Gi
+  replica:
+    replicaCount: 0
+  # image:
+  #   registry: swr.cn-north-4.myhuaweicloud.com
+  #   repository: org-devin/redis
+  #   tag: latest
+

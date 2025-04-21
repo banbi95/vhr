@@ -1,0 +1,86 @@
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 16:35 ?        00:00:07 /sbin/init
+root           2       1  0 16:35 ?        00:00:00 /init
+root           8       2  0 16:35 ?        00:00:00 plan9 --control-socket 7 --log-level 4 --server-fd 8 --pipe-fd 10 --log-truncate
+root          65       1  0 16:35 ?        00:00:22 /lib/systemd/systemd-journald
+root          89       1  0 16:35 ?        00:00:00 /lib/systemd/systemd-udevd
+_rpc         165       1  0 16:35 ?        00:00:00 /sbin/rpcbind -f -w
+systemd+     167       1  0 16:35 ?        00:00:00 /lib/systemd/systemd-resolved
+systemd+     172       1  0 16:35 ?        00:00:00 /lib/systemd/systemd-timesyncd
+root         192       1  0 16:35 ?        00:00:00 /usr/sbin/cron -f -P
+message+     193       1  0 16:35 ?        00:00:01 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         200       1  0 16:35 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+syslog       201       1  0 16:35 ?        00:00:11 /usr/sbin/rsyslogd -n -iNONE
+root         205       1  0 16:35 ?        00:00:00 /lib/systemd/systemd-logind
+root         212       1  0 16:35 ?        00:00:03 /usr/bin/containerd
+root         222       1  0 16:35 ?        00:00:00 /sbin/agetty -o -p -- \u --noclear --keep-baud console 115200,38400,9600 vt220
+root         231       1  0 16:35 tty1     00:00:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root         248       1  0 16:35 ?        00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root         249       1  0 16:35 ?        00:00:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+root         340       2  0 16:35 pts/1    00:00:00 /bin/login -f
+root         359       2  0 16:35 ?        00:00:00 /init
+root         360     359  0 16:35 ?        00:00:00 /init
+devin        361     360  0 16:35 pts/0    00:00:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" 4949701c880d4bdb949e3c0e6b400288da7f474b stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=2086344105-2870173603-749294972-603662957 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+devin        362     361  0 16:35 pts/0    00:00:00 sh /mnt/c/Users/MSI-NB/.vscode/extensions/ms-vscode-remote.remote-wsl-0.99.0/scripts/wslServer.sh 4949701c880d4bdb949e3c0e6b400288da7f474b stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=2086344105-2870173603-749294972-603662957 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+devin        369     362  0 16:35 pts/0    00:00:00 sh /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/bin/code-server --host=127.0.0.1 --port=0 --connection-token=2086344105-2870173603-749294972-603662957 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+devin        373     369  0 16:35 pts/0    00:00:15 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=2086344105-2870173603-749294972-603662957 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+devin        394       1  0 16:35 ?        00:00:00 /lib/systemd/systemd --user
+devin        395     394  0 16:35 ?        00:00:00 (sd-pam)
+devin        406     340  0 16:35 pts/1    00:00:00 -bash
+devin        601     373  0 16:35 pts/0    00:00:07 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/bootstrap-fork --type=ptyHost --logsPath /home/devin/.vscode-server/data/logs/20250415T162848
+devin        888     360  0 16:35 pts/0    00:00:00 /bin/sh -c /home/devin/.lingma/bin/2.2.2/x86_64_linux/Lingma start
+devin        889     888  0 16:35 pts/0    00:00:05 /home/devin/.lingma/bin/2.2.2/x86_64_linux/Lingma start
+root        1070       2  0 16:35 ?        00:00:00 /init
+root        1071    1070  0 16:35 ?        00:00:00 /init
+devin       1072    1071  0 16:35 pts/2    00:00:01 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node -e const net = require('net'); process.stdin.pause(); const client = net.createConnection({ host: '127.0.0.1', port: 42519 }, () => { client.pipe(process.stdout); process.stdin.pipe(client); }); client.on('close', function (hadError) { console.error(hadError ? 'Remote close with error' : 'Remote close'); process.exit(hadError ? 1 : 0); }); client.on('error', function (err) { process.stderr.write(err && (err.stack || err.message) || String(err)); });
+root        1079       2  0 16:35 ?        00:00:00 /init
+root        1080    1079  0 16:35 ?        00:00:00 /init
+devin       1081    1080  0 16:35 pts/3    00:00:01 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node -e const net = require('net'); process.stdin.pause(); const client = net.createConnection({ host: '127.0.0.1', port: 42519 }, () => { client.pipe(process.stdout); process.stdin.pipe(client); }); client.on('close', function (hadError) { console.error(hadError ? 'Remote close with error' : 'Remote close'); process.exit(hadError ? 1 : 0); }); client.on('error', function (err) { process.stderr.write(err && (err.stack || err.message) || String(err)); });
+devin       1088     373  1 16:35 pts/0    00:01:06 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node --dns-result-order=ipv4first /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=true
+devin       1104     373  0 16:35 pts/0    00:00:01 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/bootstrap-fork --type=fileWatcher
+devin       1135    1088  0 16:35 pts/0    00:00:00 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=1088
+root        1148       2  0 16:35 ?        00:00:00 /init
+root        1149    1148  0 16:35 ?        00:00:00 /init
+devin       1150    1149  0 16:35 pts/4    00:00:00 /bin/sh -c cd '/opt/vhr' && /bin/sh
+devin       1151    1150  0 16:35 pts/4    00:00:00 /bin/sh
+devin       1161    1151  0 16:35 pts/4    00:00:00 /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/node /home/devin/.vscode-remote-containers/dist/vscode-remote-containers-server-0.409.0.js
+devin       1199    1161  0 16:35 pts/4    00:00:00 /bin/sh
+devin       1419    1088  0 16:35 pts/0    00:00:44 /home/devin/.vscode-server/extensions/redhat.java-1.41.1-linux-x64/jre/21.0.6-linux-x86_64/bin/java --add-modules=ALL-SYSTEM --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/sun.nio.fs=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Djava.import.generatesMetadataFilesAtProjectRoot=false -DDetectVMInstallationsJob.disabled=true -Dfile.encoding=utf8 -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -Xlog:disable -javaagent:/home/devin/.vscode-server/extensions/redhat.java-1.41.1-linux-x64/lombok/lombok-1.18.36.jar -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/devin/.vscode-server/data/User/workspaceStorage/58c371ba8c46ea0fda3c6c529ab00e6b/redhat.java -Daether.dependencyCollector.impl=bf -jar /home/devin/.vscode-server/extensions/redhat.java-1.41.1-linux-x64/server/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar -configuration /home/devin/.vscode-server/data/User/globalStorage/redhat.java/1.41.1/config_linux -data /home/devin/.vscode-server/data/User/workspaceStorage/58c371ba8c46ea0fda3c6c529ab00e6b/redhat.java/jdt_ws --pipe=/run/user/1000/lsp-a43f9ebe32e9d4ec0fdb14662b4364af.sock
+devin       3397     601  0 16:39 pts/7    00:00:00 /bin/bash --init-file /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-bash.sh
+root        3750       2  0 16:39 pts/9    00:00:00 /bin/login -f
+root        3817       1  0 16:39 ?        00:00:00 /lib/systemd/systemd --user
+root        3818    3817  0 16:39 ?        00:00:00 (sd-pam)
+root        3826    3750  0 16:39 pts/9    00:00:00 -bash
+root        3998     249  0 16:39 ?        00:00:00 sshd: root@notty
+root        4030    3998  0 16:39 ?        00:00:29 java -jar remoting.jar -workDir /var/jenkins -jar-cache /var/jenkins/remoting/jarCache
+root        4106       2  0 16:39 ?        00:00:00 /init
+root        4107    4106  0 16:39 ?        00:00:00 /init
+devin       4114    4107  0 16:39 pts/5    00:00:00 sh
+root        4182    4106  0 16:39 ?        00:00:00 /init
+root        4183    4182  0 16:39 pts/8    00:00:00 /mnt/wsl/docker-desktop/docker-desktop-user-distro proxy --distro-name Ubuntu-22.04 --docker-desktop-root /mnt/wsl/docker-desktop C:\Program Files\Docker\Docker\resources --show-kube-system-containers=true
+root        9968       1  0 16:51 ?        00:00:00 /usr/libexec/packagekitd
+root        9972       1  0 16:51 ?        00:00:00 /usr/libexec/polkitd --no-debug
+root       20557       1  0 17:14 ?        00:00:01 snapfuse /var/lib/snapd/snaps/snapd_23771.snap /snap/snapd/23771 -o ro,nodev,allow_other,suid
+root       20671       1  0 17:14 ?        00:00:13 /usr/lib/snapd/snapd
+root       21705       1  1 17:15 ?        00:00:31 snapfuse /var/lib/snapd/snaps/core18_2855.snap /snap/core18/2855 -o ro,nodev,allow_other,suid
+root       24441       1  0 17:19 ?        00:00:22 snapfuse /var/lib/snapd/snaps/microk8s_6571.snap /snap/microk8s/6571 -o ro,nodev,allow_other,suid
+root       78809    3397  0 17:29 pts/7    00:00:00 newgrp microk8s
+devin      78810   78809  0 17:29 pts/7    00:00:00 bash
+devin     104949     601  0 17:36 pts/10   00:00:00 /bin/bash --init-file /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-bash.sh
+root      106484  104949  0 17:36 pts/10   00:00:00 su - devin
+devin     106981  106484  0 17:36 pts/10   00:00:00 -bash
+root      147586       1  0 17:42 ?        00:00:00 /bin/bash /snap/microk8s/6571/apiservice-kicker
+root      147600       1  0 17:42 ?        00:00:00 /bin/bash /snap/microk8s/6571/run-cluster-agent-with-args
+root      147617       1  1 17:42 ?        00:00:18 /snap/microk8s/6571/bin/containerd --config /var/snap/microk8s/6571/args/containerd.toml --root /var/snap/microk8s/common/var/lib/containerd --state /var/snap/microk8s/common/run/containerd --address /var/snap/microk8s/common/run/containerd.sock
+root      147710  147600  0 17:42 ?        00:00:00 /snap/microk8s/6571/bin/cluster-agent cluster-agent --bind 0.0.0.0:25000 --keyfile /var/snap/microk8s/6571/certs/server.key --certfile /var/snap/microk8s/6571/certs/server.crt --timeout 240
+root      147800       1 12 17:42 ?        00:02:02 /snap/microk8s/6571/bin/k8s-dqlite --storage-dir=/var/snap/microk8s/6571/var/kubernetes/backend/ --listen=unix:///var/snap/microk8s/6571/var/kubernetes/backend/kine.sock:12379
+root      227699  147586  0 17:58 ?        00:00:00 sleep 5
+devin     227742   78810  1 17:58 pts/7    00:00:00 /bin/bash /snap/microk8s/6571/microk8s.wrapper inspect
+root      227773  227742  0 17:58 pts/7    00:00:00 sudo -E /snap/microk8s/6571/inspect.sh
+root      227774  227773  0 17:58 pts/11   00:00:00 sudo -E /snap/microk8s/6571/inspect.sh
+root      227775  227774  0 17:58 pts/11   00:00:00 bash /snap/microk8s/6571/inspect.sh
+root      227849       1  0 17:58 ?        00:00:01 /snap/microk8s/6571/kubelite --scheduler-args-file=/var/snap/microk8s/6571/args/kube-scheduler --controller-manager-args-file=/var/snap/microk8s/6571/args/kube-controller-manager --proxy-args-file=/var/snap/microk8s/6571/args/kube-proxy --kubelet-args-file=/var/snap/microk8s/6571/args/kubelet --apiserver-args-file=/var/snap/microk8s/6571/args/kube-apiserver --kubeconfig-file=/var/snap/microk8s/6571/credentials/client.config --start-control-plane=true
+devin     227998     601  0 17:58 pts/0    00:00:00 /bin/sh -c "/home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/vs/base/node/cpuUsage.sh" 3397 78809 78810 227742 227773 227774 227775 227812
+devin     227999  227998  0 17:58 pts/0    00:00:00 /bin/bash /home/devin/.vscode-server/bin/4949701c880d4bdb949e3c0e6b400288da7f474b/out/vs/base/node/cpuUsage.sh 3397 78809 78810 227742 227773 227774 227775 227812
+devin     228009  227999  0 17:58 pts/0    00:00:00 sleep 1
+root      228034  227775  0 17:58 pts/11   00:00:00 ps -ef

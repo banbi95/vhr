@@ -1,0 +1,71 @@
+# overlays/dev/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base
+- namespace.yaml  # creat a new namespace
+
+
+
+# shift to namespace vhr 
+namespace: vhr
+
+replicas:
+  - name: vhr-backend
+    count: 3
+  - name: vhr-ui
+    count: 3
+
+labels:
+  - pairs:
+      env: test
+    includeSelectors: true
+
+
+images:
+- name: demo.goharbor.io/vhr/vhr-ui
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-ui   
+  newTag: "1.0"
+- name: demo.goharbor.io/vhr/vhr-backend
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend
+  newTag: "v1.4"
+- name: swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/rabbitmq
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/rabbitmq
+  newTag: "3-management"
+- name: mysql
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/mysql
+  newTag: "lts"  
+- name: redis
+  newName: swr.cn-north-4.myhuaweicloud.com/org-devin/redis
+  newTag: "latest"
+
+# SecretGenerator:
+# - name: secret-config
+#   files:
+#     - env/.env
+
+# add patch-mysql-storage.yaml
+patches:
+- path: patch-mysql-storage.yaml
+  target: 
+    group: "" 
+    version: v1
+    kind: PersistentVolumeClaim  
+    name: mysql-data  
+- path: patch-redis-storage.yaml
+  target:  
+    group: ""  
+    version: v1
+    kind: PersistentVolumeClaim  
+    name: redis-data 
+- path: patch-rabbitmq-storage.yaml
+  target:  
+    group: ""  
+    version: v1
+    kind: PersistentVolumeClaim  
+    name: rabbitmq-data 
+
+
+
+

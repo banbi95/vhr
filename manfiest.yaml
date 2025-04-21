@@ -1,0 +1,1432 @@
+---
+# Source: vhr-chart/charts/mysql/templates/networkpolicy.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: vhr
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/version: 8.4.0
+      helm.sh/chart: mysql-11.0.0
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - {}
+  ingress:
+    - ports:
+        - port: 3306
+        - port: 3306
+---
+# Source: vhr-chart/charts/mysql/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+automountServiceAccountToken: false
+secrets:
+  - name: vhr-mysql
+---
+# Source: vhr-chart/charts/rabbitmq/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vhr-rabbitmq
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+automountServiceAccountToken: true
+secrets:
+  - name: vhr-rabbitmq
+---
+# Source: vhr-chart/charts/redis/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  name: vhr-redis
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+---
+# Source: vhr-chart/charts/mysql/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+type: Opaque
+data:
+  mysql-root-password: "cGFzc3dvcmQ="
+  mysql-password: "dlhCNUdBa0J0ZQ=="
+---
+# Source: vhr-chart/charts/rabbitmq/templates/config-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-rabbitmq-config
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+type: Opaque
+data:
+  rabbitmq.conf: |-
+    IyMgVXNlcm5hbWUgYW5kIHBhc3N3b3JkCiMjCmRlZmF1bHRfdXNlciA9IHVzZXIKZGVmYXVsdF9wYXNzID0gQ0hBTkdFTUUKIyMgQ2x1c3RlcmluZwojIwpjbHVzdGVyX2Zvcm1hdGlvbi5wZWVyX2Rpc2NvdmVyeV9iYWNrZW5kICA9IHJhYmJpdF9wZWVyX2Rpc2NvdmVyeV9rOHMKY2x1c3Rlcl9mb3JtYXRpb24uazhzLmhvc3QgPSBrdWJlcm5ldGVzLmRlZmF1bHQKY2x1c3Rlcl9mb3JtYXRpb24ubm9kZV9jbGVhbnVwLmludGVydmFsID0gMTAKY2x1c3Rlcl9mb3JtYXRpb24ubm9kZV9jbGVhbnVwLm9ubHlfbG9nX3dhcm5pbmcgPSB0cnVlCmNsdXN0ZXJfcGFydGl0aW9uX2hhbmRsaW5nID0gYXV0b2hlYWwKIyBxdWV1ZSBtYXN0ZXIgbG9jYXRvcgpxdWV1ZV9tYXN0ZXJfbG9jYXRvciA9IG1pbi1tYXN0ZXJzCiMgZW5hYmxlIGd1ZXN0IHVzZXIKbG9vcGJhY2tfdXNlcnMuZ3Vlc3QgPSBmYWxzZQojZGVmYXVsdF92aG9zdCA9IGRlZmF1bHQtdmhvc3QKI2Rpc2tfZnJlZV9saW1pdC5hYnNvbHV0ZSA9IDUwTUI=
+---
+# Source: vhr-chart/charts/rabbitmq/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-rabbitmq
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+type: Opaque
+data:
+  rabbitmq-password: "RzhRQmdmbDZkVFc5b3JyMg=="
+  
+  rabbitmq-erlang-cookie: "aGdZNjFwbnB4YU5Ia09aV01xR2FMUThDeUgyY1NuN28="
+---
+# Source: vhr-chart/charts/redis/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-redis
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+type: Opaque
+data:
+  redis-password: "cGFzc3dvcmQ="
+---
+# Source: vhr-chart/templates/vhr-image-registry.yaml
+# crate a  secret to pull from private registry
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-image-registry
+  annotations:
+    kubernetes.io/service-account.name: vhr-image-registry
+    kubernetes.io/dockerconfigjson: "true"
+type: kubernetes.io/dockerconfigjson
+data:
+    # .dockerconfigjson: ewoJImF1dGhzIjogewoJCSIyc3dyLm5vcnRoNC5teWh1YXdlYl9jbG91ZC5jb20iOiB7CgkJCSJ1c2VybmFtZSI6ICJjbi1ub3J0aDQkRjI0RENFR0tDMjZWSUExQ1RJTiIsCgkJCSJwYXNzd29yZCI6ICIxNGYzMmM5ZWY0ODJlOTkyNjVkMTk0MjRiNjlhNDI5ZThlN2VjOTJiOGJlYmNmZTNjMWFjYjU4M2NmZmU5Njg2IiwKCQkJImVtYWlsIjogIiIsCgkJCSJhdXRoIjogIiIsCgkJCSJ0eXBlIjogInRva2VuIgp9Cgl9Cn0=
+    .dockerconfigjson: |
+      ewogICJhdXRocyI6IHsKICAgICJzd3IuY24tbm9ydGgtNC5teWh1YXdlaWNsb3VkLmNvbSI6IHsKICAgICAgInVzZXJuYW1lIjogImNuLW5vcnRoLTRARjI0RENFTEdDSzJWQUoxQ1RJTlIiLAogICAgICAicGFzc3dvcmQiOiAiMTRmMzJjOWVmNDgyZTk5MjY1ZDE5NDI0YjY5YTQyOWU4ZTdlYzkyYjhiZWJjZmUzYzFhY2I1ODNjZmZlOTY4NiIsCiAgICAgICJlbWFpbCI6ICIxNzkwMjM2ODgxQHFxLmNvbSIsCiAgICAgICJhdXRoIjogIlkyNHRibTl5ZEdndE5FQkdNalJFUkVORlRFZERTekpXUVVveFExUkpUbEk2TVRSbU16SmpPV1ZtTkRneVpUazVNalkxWkRFNU5ESTBZalk1WVRReU9XVTRaVGRsWXpreVlqaGlaV0pqWm1Vell6RmhZMkkxT0ROalptWmxPVFk0Tmc9PSIKICAgIH0KICB9Cn0=
+---
+# Source: vhr-chart/templates/vhr-secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vhr-secrets
+  namespace: default  # Use the same namespace as the deployment
+type: Opaque
+data:
+  DB_PASSWORD: "cGFzc3dvcmQ="
+  RABBITMQ_PASSWORD: "cGFzc3dvcmQ="
+  REDIS_PASSWORDs: "cGFzc3dvcmQ="
+---
+# Source: vhr-chart/charts/mysql/templates/primary/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+    app.kubernetes.io/component: primary
+data:
+  my.cnf: |-
+    [mysqld]
+    authentication_policy='* ,,'
+    skip-name-resolve
+    explicit_defaults_for_timestamp
+    basedir=/opt/bitnami/mysql
+    plugin_dir=/opt/bitnami/mysql/lib/plugin
+    port=3306
+    mysqlx=0
+    mysqlx_port=33060
+    socket=/opt/bitnami/mysql/tmp/mysql.sock
+    datadir=/bitnami/mysql/data
+    tmpdir=/opt/bitnami/mysql/tmp
+    max_allowed_packet=16M
+    bind-address=*
+    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+    log-error=/opt/bitnami/mysql/logs/mysqld.log
+    character-set-server=UTF8
+    slow_query_log=0
+    long_query_time=10.0
+    
+    [client]
+    port=3306
+    socket=/opt/bitnami/mysql/tmp/mysql.sock
+    default-character-set=UTF8
+    plugin_dir=/opt/bitnami/mysql/lib/plugin
+    
+    [manager]
+    port=3306
+    socket=/opt/bitnami/mysql/tmp/mysql.sock
+    pid-file=/opt/bitnami/mysql/tmp/mysqld.pid
+---
+# Source: vhr-chart/charts/redis/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vhr-redis-configuration
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+data:
+  redis.conf: |-
+    # User-supplied common configuration:
+    # Enable AOF https://redis.io/topics/persistence#append-only-file
+    appendonly yes
+    # Disable RDB persistence, AOF persistence already enabled.
+    save ""
+    # End of common configuration
+  master.conf: |-
+    dir /data
+    # User-supplied master configuration:
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    # End of master configuration
+  replica.conf: |-
+    dir /data
+    # User-supplied replica configuration:
+    rename-command FLUSHDB ""
+    rename-command FLUSHALL ""
+    # End of replica configuration
+---
+# Source: vhr-chart/charts/redis/templates/health-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vhr-redis-health
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+data:
+  ping_readiness_local.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
+    response=$(
+      timeout -s 3 $1 \
+      redis-cli \
+        -h localhost \
+        -p $REDIS_PORT \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    if [ "$response" != "PONG" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_liveness_local.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    [[ -n "$REDIS_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_PASSWORD"
+    response=$(
+      timeout -s 3 $1 \
+      redis-cli \
+        -h localhost \
+        -p $REDIS_PORT \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    responseFirstWord=$(echo $response | head -n1 | awk '{print $1;}')
+    if [ "$response" != "PONG" ] && [ "$responseFirstWord" != "LOADING" ] && [ "$responseFirstWord" != "MASTERDOWN" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_readiness_master.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_MASTER_PASSWORD_FILE ]] && export REDIS_MASTER_PASSWORD="$(< "${REDIS_MASTER_PASSWORD_FILE}")"
+    [[ -n "$REDIS_MASTER_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_MASTER_PASSWORD"
+    response=$(
+      timeout -s 3 $1 \
+      redis-cli \
+        -h $REDIS_MASTER_HOST \
+        -p $REDIS_MASTER_PORT_NUMBER \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    if [ "$response" != "PONG" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_liveness_master.sh: |-
+    #!/bin/bash
+
+    [[ -f $REDIS_MASTER_PASSWORD_FILE ]] && export REDIS_MASTER_PASSWORD="$(< "${REDIS_MASTER_PASSWORD_FILE}")"
+    [[ -n "$REDIS_MASTER_PASSWORD" ]] && export REDISCLI_AUTH="$REDIS_MASTER_PASSWORD"
+    response=$(
+      timeout -s 3 $1 \
+      redis-cli \
+        -h $REDIS_MASTER_HOST \
+        -p $REDIS_MASTER_PORT_NUMBER \
+        ping
+    )
+    if [ "$?" -eq "124" ]; then
+      echo "Timed out"
+      exit 1
+    fi
+    responseFirstWord=$(echo $response | head -n1 | awk '{print $1;}')
+    if [ "$response" != "PONG" ] && [ "$responseFirstWord" != "LOADING" ]; then
+      echo "$response"
+      exit 1
+    fi
+  ping_readiness_local_and_master.sh: |-
+    script_dir="$(dirname "$0")"
+    exit_status=0
+    "$script_dir/ping_readiness_local.sh" $1 || exit_status=$?
+    "$script_dir/ping_readiness_master.sh" $1 || exit_status=$?
+    exit $exit_status
+  ping_liveness_local_and_master.sh: |-
+    script_dir="$(dirname "$0")"
+    exit_status=0
+    "$script_dir/ping_liveness_local.sh" $1 || exit_status=$?
+    "$script_dir/ping_liveness_master.sh" $1 || exit_status=$?
+    exit $exit_status
+---
+# Source: vhr-chart/charts/redis/templates/scripts-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vhr-redis-scripts
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+data:
+  start-master.sh: |
+    #!/bin/bash
+
+    [[ -f $REDIS_PASSWORD_FILE ]] && export REDIS_PASSWORD="$(< "${REDIS_PASSWORD_FILE}")"
+    if [[ ! -f /opt/bitnami/redis/etc/master.conf ]];then
+        cp /opt/bitnami/redis/mounted-etc/master.conf /opt/bitnami/redis/etc/master.conf
+    fi
+    if [[ ! -f /opt/bitnami/redis/etc/redis.conf ]];then
+        cp /opt/bitnami/redis/mounted-etc/redis.conf /opt/bitnami/redis/etc/redis.conf
+    fi
+    ARGS=("--port" "${REDIS_PORT}")
+    ARGS+=("--requirepass" "${REDIS_PASSWORD}")
+    ARGS+=("--masterauth" "${REDIS_PASSWORD}")
+    ARGS+=("--include" "/opt/bitnami/redis/etc/redis.conf")
+    ARGS+=("--include" "/opt/bitnami/redis/etc/master.conf")
+    exec redis-server "${ARGS[@]}"
+---
+# Source: vhr-chart/templates/vhr-nginx-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    upstream backend {
+    server vhr-backend:8081 max_fails=3 fail_timeout=10s;
+    #  number of available connection with upstream server  , by deafult vcpu * 4
+    keepalive 4;
+    }
+    server {
+        listen 80;
+        server_name _;
+
+      # rewrite / to index.html
+        location = / {
+            root /usr/share/nginx/html;
+            try_files /index.html =404;  #
+        }
+
+      #  deal with api requests,
+        location / {
+            proxy_pass http://backend;
+            #  forcely use http1.1
+            proxy_http_version 1.1;
+            #  clear connection header to avoid 'upgrade' issues
+            proxy_set_header Connection "";  #
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+    # serve static files
+        location ~* \.(html|js|css|png|jpg|jpeg|gif|ico|map)$ {
+            root /usr/share/nginx/html;
+            try_files $uri =404;
+            gzip on;
+            gzip_vary on; #
+            gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+            expires 30d;
+        }
+
+
+      error_page 404 /404.html;
+        location = /404.html {
+            internal; #
+            root /usr/share/nginx/html;
+        }
+
+
+        # 错误页面配置
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            internal;  #
+            root /usr/share/nginx/html;
+        }
+    }
+---
+# Source: vhr-chart/charts/rabbitmq/templates/role.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vhr-rabbitmq-endpoint-reader
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+rules:
+  - apiGroups: [""]
+    resources: ["endpoints"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["create"]
+---
+# Source: vhr-chart/charts/rabbitmq/templates/rolebinding.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: vhr-rabbitmq-endpoint-reader
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+subjects:
+  - kind: ServiceAccount
+    name: vhr-rabbitmq
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vhr-rabbitmq-endpoint-reader
+---
+# Source: vhr-chart/charts/mysql/templates/primary/svc-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-mysql-headless
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+    app.kubernetes.io/component: primary
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: mysql
+  selector:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/component: primary
+---
+# Source: vhr-chart/charts/mysql/templates/primary/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+    app.kubernetes.io/component: primary
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: mysql
+      nodePort: null
+  selector:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/component: primary
+---
+# Source: vhr-chart/charts/rabbitmq/templates/svc-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-rabbitmq-headless
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+spec:
+  clusterIP: None
+  ports:
+    - name: epmd
+      port: 4369
+      targetPort: epmd
+    - name: amqp
+      port: 5672
+      targetPort: amqp
+    - name: dist
+      port: 25672
+      targetPort: dist
+    - name: http-stats
+      port: 15672
+      targetPort: stats
+  selector: 
+    app.kubernetes.io/name: rabbitmq
+    app.kubernetes.io/instance: vhr
+  publishNotReadyAddresses: true
+---
+# Source: vhr-chart/charts/rabbitmq/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-rabbitmq
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+spec:
+  type: ClusterIP
+  sessionAffinity: None
+  ports:
+    - name: amqp
+      port: 5672
+      targetPort: amqp
+      nodePort: null
+    - name: epmd
+      port: 4369
+      targetPort: epmd
+      nodePort: null
+    - name: dist
+      port: 25672
+      targetPort: dist
+      nodePort: null
+    - name: http-stats
+      port: 15672
+      targetPort: stats
+      nodePort: null
+  selector: 
+    app.kubernetes.io/name: rabbitmq
+    app.kubernetes.io/instance: vhr
+---
+# Source: vhr-chart/charts/redis/templates/headless-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-redis-headless
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+  annotations:
+    
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: tcp-redis
+      port: 6379
+      targetPort: redis
+  selector:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: vhr
+---
+# Source: vhr-chart/charts/redis/templates/master/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vhr-redis-master
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+    app.kubernetes.io/component: master
+spec:
+  type: ClusterIP
+  internalTrafficPolicy: Cluster
+  sessionAffinity: None
+  ports:
+    - name: tcp-redis
+      port: 6379
+      targetPort: redis
+      nodePort: null
+  selector:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/component: master
+---
+# Source: vhr-chart/templates/vhr-backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    io.kompose.service: vhr-backend
+  name: vhr-backend
+spec:
+  ports:
+    - name: "http"
+      port: 8081
+      targetPort: 8081
+  selector:
+    io.kompose.service: vhr-backend
+---
+# Source: vhr-chart/templates/vhr-ui-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-ui
+  name: vhr-ui
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 80
+  selector:
+    io.kompose.service: vhr-ui
+---
+# Source: vhr-chart/templates/vhr-backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-backend
+  name: vhr-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-backend
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.service: vhr-backend
+    spec:
+      imagePullSecrets:
+        - name: vhr-image-registry
+      containers:
+        - env:
+            - name: DB_HOSTNAME
+            # change default to  dynamic namespace name
+              value: vhr-mysql.default.svc.cluster.local
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: DB_PASSWORD
+            - name: DB_USERNAME
+              value: root
+            - name: RABBITMQ_HOST
+              value: vhr-rabbitmq.default.svc.cluster.local
+            - name: RABBITMQ_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: RABBITMQ_PASSWORD
+            - name: RABBITMQ_USERNAME
+              value: guest
+            - name: REDIS_HOST
+              value: vhr-redis-master.default.svc.cluster.local
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: REDIS_PASSWORD
+          image: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-backend:v1.4
+          imagePullPolicy: IfNotPresent
+          name: vhr-backend
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      restartPolicy: Always
+      # serviceAccountName: ""
+      volumes: []
+---
+# Source: vhr-chart/templates/vhr-ui-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-ui
+  name: vhr-ui
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-ui
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.network/docker-default: "true"
+        io.kompose.service: vhr-ui
+    spec:
+      imagePullSecrets:
+        - name: vhr-image-registry
+      containers:
+        - image: swr.cn-north-4.myhuaweicloud.com/org-devin/vhr-ui:1.0
+          name: vhr-ui
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d
+              name: nginx-config
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 512Mi
+              cpu: 500m
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+              initialDelaySeconds: 5
+              periodSeconds: 10
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+      restartPolicy: Always
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+---
+# Source: vhr-chart/charts/mysql/templates/primary/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vhr-mysql
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/version: 8.4.0
+    helm.sh/chart: mysql-11.0.0
+    app.kubernetes.io/component: primary
+spec:
+  replicas: 1
+  podManagementPolicy: ""
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: vhr
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/component: primary
+  serviceName: vhr-mysql
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/configuration: cafe2a10dd19c5f841c61122e99035530861b7a6f04adac3000c5edee12cb414
+      labels:
+        app.kubernetes.io/instance: vhr
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/version: 8.4.0
+        helm.sh/chart: mysql-11.0.0
+        app.kubernetes.io/component: primary
+    spec:
+      serviceAccountName: vhr-mysql
+      
+      imagePullSecrets:
+        - name: vhr-image-registry
+      automountServiceAccountToken: false
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: vhr
+                    app.kubernetes.io/name: mysql
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      initContainers:
+        - name: preserve-logs-symlinks
+          image: docker.io/bitnami/mysql:8.4.0-debian-12-r3
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            limits:
+              cpu: 750m
+              ephemeral-storage: 1024Mi
+              memory: 768Mi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 50Mi
+              memory: 512Mi
+          command:
+            - /bin/bash
+          args:
+            - -ec
+            - |
+              #!/bin/bash
+
+              . /opt/bitnami/scripts/libfs.sh
+              # We copy the logs folder because it has symlinks to stdout and stderr
+              if ! is_dir_empty /opt/bitnami/mysql/logs; then
+                cp -r /opt/bitnami/mysql/logs /emptydir/app-logs-dir
+              fi
+          volumeMounts:
+            - name: empty-dir
+              mountPath: /emptydir
+      containers:
+        - name: mysql
+          image: docker.io/bitnami/mysql:8.4.0-debian-12-r3
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-mysql
+                  key: mysql-root-password
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_DATABASE
+              value: "vhr"
+          envFrom:
+          ports:
+            - name: mysql
+              containerPort: 3306
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin ping -uroot -p"${password_aux}"
+          startupProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin ping -uroot -p"${password_aux}"
+          resources:
+            limits:
+              cpu: 750m
+              ephemeral-storage: 1024Mi
+              memory: 768Mi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 50Mi
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/mysql
+            - name: empty-dir
+              mountPath: /tmp
+              subPath: tmp-dir
+            - name: empty-dir
+              mountPath: /opt/bitnami/mysql/conf
+              subPath: app-conf-dir
+            - name: empty-dir
+              mountPath: /opt/bitnami/mysql/tmp
+              subPath: app-tmp-dir
+            - name: empty-dir
+              mountPath: /opt/bitnami/mysql/logs
+              subPath: app-logs-dir
+            - name: config
+              mountPath: /opt/bitnami/mysql/conf/my.cnf
+              subPath: my.cnf
+      volumes:
+        - name: config
+          configMap:
+            name: vhr-mysql
+        - name: empty-dir
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app.kubernetes.io/instance: vhr
+          app.kubernetes.io/name: mysql
+          app.kubernetes.io/component: primary
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "8Gi"
+        storageClassName: microk8s-hostpath
+---
+# Source: vhr-chart/charts/rabbitmq/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vhr-rabbitmq
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: rabbitmq
+    helm.sh/chart: rabbitmq-10.1.14
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "3.10.5"
+spec:
+  serviceName: vhr-rabbitmq-headless
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rabbitmq
+      app.kubernetes.io/instance: vhr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rabbitmq
+        helm.sh/chart: rabbitmq-10.1.14
+        app.kubernetes.io/instance: vhr
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: "3.10.5"
+      annotations:
+        checksum/config: 9a3cdd85cae6c0286dcb15c9d9d1dc3c3f8b9463c1f0d2e3122eb079b4047dea
+        checksum/secret: 9138c80824383c8fbea80abdb48365688415df35b2af906526098501589b7a15
+    spec:
+      
+      imagePullSecrets:
+        - name: vhr-image-registry
+      serviceAccountName: vhr-rabbitmq
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: vhr
+                    app.kubernetes.io/name: rabbitmq
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      securityContext:
+        fsGroup: 1001
+      terminationGracePeriodSeconds: 120
+      initContainers:
+      containers:
+        - name: rabbitmq
+          image: swr.cn-north-4.myhuaweicloud.com/org-devin/rabbitmq:3-management
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/bash
+                  - -ec
+                  - |
+                    if [[ -f /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh ]]; then
+                        /opt/bitnami/scripts/rabbitmq/nodeshutdown.sh -t "120" -d "false"
+                    else
+                        rabbitmqctl stop_app
+                    fi
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: K8S_SERVICE_NAME
+              value: vhr-rabbitmq-headless
+            - name: K8S_ADDRESS_TYPE
+              value: hostname
+            - name: RABBITMQ_FORCE_BOOT
+              value: "no"
+            - name: RABBITMQ_NODE_NAME
+              value: "rabbit@$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local"
+            - name: K8S_HOSTNAME_SUFFIX
+              value: ".$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local"
+            - name: RABBITMQ_MNESIA_DIR
+              value: "/bitnami/rabbitmq/mnesia/$(RABBITMQ_NODE_NAME)"
+            - name: RABBITMQ_LDAP_ENABLE
+              value: "no"
+            - name: RABBITMQ_LOGS
+              value: "-"
+            - name: RABBITMQ_ULIMIT_NOFILES
+              value: "65536"
+            - name: RABBITMQ_USE_LONGNAME
+              value: "true"
+            - name: RABBITMQ_ERL_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-rabbitmq
+                  key: rabbitmq-erlang-cookie
+            - name: RABBITMQ_LOAD_DEFINITIONS
+              value: "no"
+            - name: RABBITMQ_DEFINITIONS_FILE
+              value: "/app/load_definition.json"
+            - name: RABBITMQ_SECURE_PASSWORD
+              value: "yes"
+            - name: RABBITMQ_USERNAME
+              value: "user"
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-rabbitmq
+                  key: rabbitmq-password
+            - name: RABBITMQ_PLUGINS
+              value: "rabbitmq_management, rabbitmq_peer_discovery_k8s, rabbitmq_auth_backend_ldap"
+          envFrom:
+          ports:
+            - name: amqp
+              containerPort: 5672
+            - name: dist
+              containerPort: 25672
+            - name: stats
+              containerPort: 15672
+            - name: epmd
+              containerPort: 4369
+          livenessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+            exec:
+              command:
+                - sh
+                - -ec
+                - test "$(curl -f --user user:$RABBITMQ_PASSWORD 127.0.0.1:15672/api/healthchecks/node)" = '{"status":"ok"}'
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 20
+            exec:
+              command:
+                - sh
+                - -ec
+                - curl -f --user user:$RABBITMQ_PASSWORD 127.0.0.1:15672/api/health/checks/local-alarms
+          resources:
+            limits: {}
+            requests: {}
+          volumeMounts:
+            - name: configuration
+              mountPath: /bitnami/rabbitmq/conf
+            - name: data
+              mountPath: /bitnami/rabbitmq/mnesia
+      volumes:
+        - name: configuration
+          secret:
+            secretName: vhr-rabbitmq-config
+            items:
+              - key: rabbitmq.conf
+                path: rabbitmq.conf
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels:
+          app.kubernetes.io/name: rabbitmq
+          app.kubernetes.io/instance: vhr
+      spec:
+        accessModes:
+            - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "2Gi"
+        storageClassName: microk8s-hostpath
+---
+# Source: vhr-chart/charts/redis/templates/master/application.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vhr-redis-master
+  namespace: "default"
+  labels:
+    app.kubernetes.io/name: redis
+    helm.sh/chart: redis-17.0.1
+    app.kubernetes.io/instance: vhr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7.0.3"
+    app.kubernetes.io/component: master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+      app.kubernetes.io/instance: vhr
+      app.kubernetes.io/component: master
+  serviceName: vhr-redis-headless
+  updateStrategy:
+    rollingUpdate: {}
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        helm.sh/chart: redis-17.0.1
+        app.kubernetes.io/instance: vhr
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: "7.0.3"
+        app.kubernetes.io/component: master
+      annotations:
+        checksum/configmap: 99465a9b1b6aa3a5a532f6fc4dab8134fd345cc961970b85d6b002e29b9aceb7
+        checksum/health: 7a1d9ae4ccd2989b6f65504159d98361f988e98b943e7b9b2fd3d00906da006b
+        checksum/scripts: 46b7d115850a37f453133b4749422fec9540abb2e21f94ac53aad8af710e9d37
+        checksum/secret: eb8aa0a1ec48d12c1eb9d7a04d2585a6e568f1add1418552c859dbe5f2460238
+    spec:
+      
+      imagePullSecrets:
+        - name: vhr-image-registry
+      securityContext:
+        fsGroup: 1001
+      serviceAccountName: vhr-redis
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/instance: vhr
+                    app.kubernetes.io/name: redis
+                    app.kubernetes.io/component: master
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: redis
+          image: docker.io/bitnami/redis:7.0.3-debian-11-r0
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsUser: 1001
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - /opt/bitnami/scripts/start-scripts/start-master.sh
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: REDIS_REPLICATION_MODE
+              value: master
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "no"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-redis
+                  key: redis-password
+            - name: REDIS_TLS_ENABLED
+              value: "no"
+            - name: REDIS_PORT
+              value: "6379"
+          ports:
+            - name: redis
+              containerPort: 6379
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            # One second longer than command timeout should prevent generation of zombie processes.
+            timeoutSeconds: 6
+            successThreshold: 1
+            failureThreshold: 5
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_liveness_local.sh 5
+          readinessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 5
+            exec:
+              command:
+                - sh
+                - -c
+                - /health/ping_readiness_local.sh 1
+          resources:
+            limits: {}
+            requests: {}
+          volumeMounts:
+            - name: start-scripts
+              mountPath: /opt/bitnami/scripts/start-scripts
+            - name: health
+              mountPath: /health
+            - name: redis-data
+              mountPath: /data
+              subPath: 
+            - name: config
+              mountPath: /opt/bitnami/redis/mounted-etc
+            - name: redis-tmp-conf
+              mountPath: /opt/bitnami/redis/etc/
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: start-scripts
+          configMap:
+            name: vhr-redis-scripts
+            defaultMode: 0755
+        - name: health
+          configMap:
+            name: vhr-redis-health
+            defaultMode: 0755
+        - name: config
+          configMap:
+            name: vhr-redis-configuration
+        - name: redis-tmp-conf
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+        labels:
+          app.kubernetes.io/name: redis
+          app.kubernetes.io/instance: vhr
+          app.kubernetes.io/component: master
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "2Gi"
+        storageClassName: microk8s-hostpath
+---
+# Source: vhr-chart/templates/vhr-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vhr-ui-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: vhr.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vhr-ui
+            port:
+              number: 80

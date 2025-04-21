@@ -1,0 +1,19 @@
+● snap.microk8s.daemon-containerd.service - Service for snap application microk8s.daemon-containerd
+     Loaded: loaded (/etc/systemd/system/snap.microk8s.daemon-containerd.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2025-04-15 17:41:34 CST; 17min ago
+   Main PID: 147617 (containerd)
+      Tasks: 24 (limit: 19045)
+     Memory: 29.9M
+     CGroup: /system.slice/snap.microk8s.daemon-containerd.service
+             └─147617 /snap/microk8s/6571/bin/containerd --config /var/snap/microk8s/6571/args/containerd.toml --root /var/snap/microk8s/common/var/lib/containerd --state /var/snap/microk8s/common/run/containerd --address /var/snap/microk8s/common/run/containerd.sock
+
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100758967+08:00" level=info msg=serving... address="127.0.0.1:1338"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100766885+08:00" level=info msg="Start recovering state"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100805131+08:00" level=info msg=serving... address=/var/snap/microk8s/common/run/containerd.sock.ttrpc
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100813514+08:00" level=info msg="Start event monitor"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100822778+08:00" level=info msg="Start snapshots syncer"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100822559+08:00" level=info msg=serving... address=/var/snap/microk8s/common/run/containerd.sock
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100828923+08:00" level=info msg="Start cni network conf syncer for default"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100858329+08:00" level=info msg="Start streaming server"
+Apr 15 17:41:34 msi microk8s.daemon-containerd[147617]: time="2025-04-15T17:41:34.100911855+08:00" level=info msg="containerd successfully booted in 0.027922s"
+Apr 15 17:41:34 msi systemd[1]: Started Service for snap application microk8s.daemon-containerd.

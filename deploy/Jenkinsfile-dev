@@ -149,7 +149,7 @@ pipeline {
             sh """
             cat ./deploy/k8s/base/env/.docker-config.json | base64 --decode
             kubectl config use-context dev
-            kubectl apply  -k ./deploy/k8s/overlays/dev
+            kubectl kustomize --enable-helm deploy/k8s/overlays/dev  | kubectl apply -f - 
             """
                 }
             }

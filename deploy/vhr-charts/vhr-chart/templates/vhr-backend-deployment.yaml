@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f dockerCompose.yaml
+    kompose.version: 1.32.0 (765fde254)
+  labels:
+    io.kompose.service: vhr-backend
+  name: vhr-backend
+spec:
+  replicas: {{ .Values.vhr_backend.replicas }}
+  selector:
+    matchLabels:
+      io.kompose.service: vhr-backend
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f dockerCompose.yaml
+        kompose.version: 1.32.0 (765fde254)
+      labels:
+        io.kompose.service: vhr-backend
+    spec:
+      imagePullSecrets:
+        - name: vhr-image-registry
+      containers:
+        - env:
+            - name: DB_HOSTNAME
+            # change default to  dynamic namespace name
+              value: vhr-mysql.{{ .Release.Namespace }}.svc.cluster.local
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: DB_PASSWORD
+            - name: DB_USERNAME
+              value: root
+            - name: RABBITMQ_HOST
+              value: vhr-rabbitmq.{{ .Release.Namespace }}.svc.cluster.local
+            - name: RABBITMQ_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: RABBITMQ_PASSWORD
+            - name: RABBITMQ_USERNAME
+              value: guest
+            - name: REDIS_HOST
+              value: vhr-redis-master.{{ .Release.Namespace }}.svc.cluster.local
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: vhr-secrets
+                  key: REDIS_PASSWORD
+          image: {{ .Values.vhr_backend.images }}
+          imagePullPolicy: IfNotPresent
+          name: vhr-backend
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      restartPolicy: Always
+      # serviceAccountName: ""
+      volumes: []
