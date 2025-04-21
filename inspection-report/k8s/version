@@ -1,4 +1,0 @@
-WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
-Client Version: version.Info{Major:"1", Minor:"25", GitVersion:"v1.25.16", GitCommit:"c5f43560a4f98f2af3743a59299fb79f07924373", GitTreeState:"clean", BuildDate:"2024-02-20T14:19:56Z", GoVersion:"go1.20.10", Compiler:"gc", Platform:"linux/amd64"}
-Kustomize Version: v4.5.7
-The connection to the server 127.0.0.1:16443 was refused - did you specify the right host or port?

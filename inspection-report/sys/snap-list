@@ -1,4 +1,0 @@
-Name      Version   Rev    Tracking       Publisher    Notes
-core18    20250123  2855   latest/stable  canonical**  base
-microk8s  v1.25.16  6571   1.25/stable    canonical**  classic
-snapd     2.67.1    23771  latest/stable  canonical**  snapd

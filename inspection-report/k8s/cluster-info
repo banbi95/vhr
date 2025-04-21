@@ -1,3 +1,0 @@
-
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
-The connection to the server 127.0.0.1:16443 was refused - did you specify the right host or port?

@@ -167,10 +167,9 @@ stage('Generate .secret') {
  // deploy to assigned environment
         stage('deploy with helm') {
             steps {
-// replace ctx as var env 
             sh "sudo kubectl ctx ${env.KUBE_CONTEXT} "
             sh 'pwd'
-            sh 'helm upgrade --install my-app ./ --namespace=vhr'
+            sh 'helm upgrade --install vhr deploy/vhr-charts/vhr-chart/ -f values-test.yaml --namespace=vhr'
             }
         }
         
