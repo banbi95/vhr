@@ -123,29 +123,38 @@ pipeline {
             }
         }
 // dynamically generate docker image pull secret 
-stage('Generate Docker Config') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    script {
-                        // 计算 Base64 编码的 auth 字符串
-                        def dockerAuth = "${env.DOCKER_USERNAME}:${env.DOCKER_PASSWORD}".bytes.encodeBase64().toString()
-
-                        // 使用 sed 替换模板中的占位符
-                        sh """
-                            sed -e 's|DOCKER_USERNAME_PLACEHOLDER|${env.DOCKER_USERNAME}|g' \
-                                -e 's|DOCKER_PASSWORD_PLACEHOLDER|${env.DOCKER_PASSWORD}|g' \
-                                -e 's|DOCKER_EMAIL_PLACEHOLDER|1790236881@qq.com|g' \
-                                -e 's|DOCKER_AUTH_PLACEHOLDER|${dockerAuth}|g' \
-                                .dockerconfig.json.template > .dockerconfig.json
-                        """
-                    }
-                }
-
-            }
+        stage('Generate Docker Config') {
+// shift the working dir from root to deploy/vhr-charts/vhr-chart/.secret.template
+                steps {
+                        dir('deploy/vhr-charts/vhr-chart') { 
+                                withCredentials([usernamePassword(credentialsId: env.DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                                    script {
+                                        def dockerAuth = sh(
+                                            script: """
+                                                echo -n "${DOCKER_USERNAME}:${DOCKER_PASSWORD}" | base64 | tr -d '\\n'
+                                            """,
+                                            returnStdout: true
+                                        ).trim()
+                                        
+                                        sh """
+                                            sed -e 's|DOCKER_USERNAME_PLACEHOLDER|${DOCKER_USERNAME}|g' \
+                                                -e 's|DOCKER_PASSWORD_PLACEHOLDER|${DOCKER_PASSWORD}|g' \
+                                                -e 's|DOCKER_EMAIL_PLACEHOLDER|1790236881@qq.com|g' \
+                                                -e 's|DOCKER_AUTH_PLACEHOLDER|${dockerAuth}|g' \
+                                                .dockerconfig.json.template > .dockerconfig.json
+                                        """
+                                    }
+                                }
+                            }
+                        }
         }
+
 // dymamically generate .secret file , use sed to replace pass holder in .secret.template with pass stored in jeknins server 
+
 stage('Generate .secret') {
+    // shift the working dir  to deploy/vhr-charts/vhr-chart/
     steps {
+        dir('deploy/vhr-charts/vhr-chart'){
         withCredentials([
             string(credentialsId: 'vhr-db-password', variable: 'DB_PASSWORD'),
             string(credentialsId: 'vhr-rabbitmq-password', variable: 'RABBITMQ_PASSWORD'),
@@ -162,23 +171,29 @@ stage('Generate .secret') {
         }
     }
 }
-
+}
 
  // deploy to assigned environment
+ // shift the working dir  to deploy/Jenkinsfile-dev
+
         stage('deploy with helm') {
             steps {
-            sh "sudo kubectl ctx ${env.KUBE_CONTEXT} "
-            sh 'pwd'
-            sh 'helm upgrade --install vhr deploy/vhr-charts/vhr-chart/ -f values-test.yaml --namespace=vhr'
+                dir('deploy/vhr-charts/vhr-chart'){
+            sh "sudo kubectl config use-context ${env.KUBE_CONTEXT} --kubeconfig=/root/.kube/config"
+            sh 'helm upgrade --install vhr ./  -f values-test.yaml --namespace=vhr'
             }
         }
+    }
         
         stage('cleanup') {
             steps{
-                script {
+                dir('deploy/vhr-charts/vhr-chart'){
+                  script {
                     sh 'rm -f .dockerconfig.json .secret'
                 }
             }
         }
+    }
+
     }
 }
